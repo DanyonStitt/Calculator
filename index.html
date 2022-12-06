@@ -5,12 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Create div for the calculator -->
     <div class="calculator">
         <!-- screen -->
-        <div class="screen"></div>
+        <div class="screen">
+            <div class="working">857364879</div>
+            <div class="answer">67</div>
+        </div>
 
         <!-- top row of buttons -->
         <div class="calc-nav">
@@ -21,23 +26,31 @@
         </div>
 
         <!-- main buttons -->
-        <div class="main-buttons">
-            <button id="number">0</button>
-            <button id="number">1</button>
-            <button id="number">2</button>
-            <button id="number">3</button>
-            <button id="number">4</button>
-            <button id="number">5</button>
-            <button id="number">6</button>
-            <button id="number">7</button>
-            <button id="number">8</button>
-            <button id="number">9</button>
-
-            <button id="function">+</button>
-            <button id="function">-</button>
-            <button id="function">/</button>
-            <button id="function">x</button>
-            <button id="function">*</button>
+        <div class="numbers">
+            <div id="first-line">
+                <button id="number">7</button>
+                <button id="number">8</button>
+                <button id="number">9</button>
+                <button id="function">/</button>
+            </div>
+            <div id="second-line">
+                <button id="number">4</button>
+                <button id="number">5</button>
+                <button id="number">6</button>
+                <button id="function">*</button>
+            </div>
+            <div id="third-line">
+                <button id="number">1</button>
+                <button id="number">2</button>
+                <button id="number">3</button>
+                <button id="function">+</button>
+            </div>
+            <div id="fourth-line">
+                <button id="number">0</button>
+                <button id="number">.</button>
+                <button id="equals">=</button>
+                <button id="function">+</button>
+            </div>
         </div>
     </div>
     <!-- End note with my user tag -->
