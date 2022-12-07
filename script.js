@@ -44,9 +44,7 @@ function getButton(e) {
     else if (e.target.id === "function") {
         // keep track of the operator used
         operand = e.target.innerText;
-        makeCurrentEquation(" ");
         makeCurrentEquation(operand);
-        makeCurrentEquation(" ");
         updateDisplay();
         // update the screen with the number " " and the operand
     } 
