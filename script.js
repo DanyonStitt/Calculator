@@ -17,19 +17,37 @@ working.innerText = 0;
 const answer = document.querySelector(".answer");
 answer.innerText = 0;
 
-// function operate(a, b, operand) {
-//     if(operand === "*") {return a*b;}
-//     else if(operand === "+") {return a+b;}
-//     else if(operand === "-") {return a-b;}
-//     else if(operand === "/") {return a/b;};
-// };
+function getResult() {
+    // Set the starting value
+    let a = numberArray[0];
+
+    // for each operand in the array
+    for (i = 0; i < operands.length; i++) {
+        let b = numberArray[i+1];
+
+        // operate on the first two numbers
+        a = operate(a, b, operands[i]);
+    };
+    
+    lastAnswer = a;
+    updateEquation(" =");
+    updateDisplay();
+    answer.innerText = lastAnswer;
+};
+
+function operate(a, b, operand) {
+    if(operand === "*") {return a*b;}
+    else if(operand === "+") {return a+b;}
+    else if(operand === "-") {return a-b;}
+    else if(operand === "/") {return a/b;};
+}
 
 function getButton(e) {
     let number = e.target.innerText;
 
     if(isNaN(number) === false || number === ".") {
         updateEquation(number);
-        updateNumber(number)
+        updateNumber(number);
     } 
     else if (e.target.id === "clear-all") {
         clearAll();
@@ -46,11 +64,16 @@ function getButton(e) {
     } 
     else if (e.target.id === "function") {
         // keep track of the operator used
+        updateEquation(" ");
         updateEquation(number);
+        updateEquation(" ");
         recordOperands(number);
         // update the screen with the number " " and the operand
     } 
-    else {}; // run  the execute function
+    else {
+        // run the execute function
+        operate(numberArray, operands);
+    }; 
 };
 
 // Update the equation for display on the screen
@@ -82,7 +105,7 @@ function clearAll() {
     currentEquation = null;
     currentNumber = null;
     numberArray = [];
-    operand = [];
+    operands = [];
     lastAnswer = null;
     working.innerText = 0;
 };
