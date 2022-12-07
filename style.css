@@ -18,6 +18,16 @@ body {
     max-height: 80%;
 }
 
+.screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 50px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
 .main-buttons {
     display: flex;
     flex-direction: column;
