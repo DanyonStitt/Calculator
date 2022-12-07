@@ -18,12 +18,22 @@ body {
     max-height: 80%;
 }
 
+.main-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 auto;
+}
+
 #line {
     display: flex;
     justify-content: space-evenly;
+    gap: 5px;
+    height: 15%
 }
 
 button {
     width: 50px;
+    flex: 1 1 0;
 }
 
