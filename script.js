@@ -1,11 +1,9 @@
 // keep track of the current number
-let currentNumber = null;
-
+let currentEquation = null;
 // keep track of the answer from the last executed function
 let lastAnswer = null;
-
 // Keep track of the operand
-let operand;
+let operand = null;
 
 // Create selector for updating the working part of the screen
 const working = document.querySelector(".working");
@@ -27,14 +25,15 @@ function getButton(e) {
     let number = e.target.innerText;
 
     if(isNaN(number) === false || number === ".") {
-        makeCurrentNumber(number);
+        makeCurrentEquation(number);
         updateDisplay();
     } 
     else if (e.target.id === "clear-all") {
         clearAll();
     } 
     else if (e.target.id === "backspace") {
-        // backSpace();
+        currentEquation = currentEquation.slice(0, -1);
+        updateDisplay();
     } 
     else if (e.target.id === "trig") {
         // switch buttons to trig options using a function
@@ -44,32 +43,39 @@ function getButton(e) {
     } 
     else if (e.target.id === "function") {
         // keep track of the operator used
-        console.log(e.target.innerText);
+        operand = e.target.innerText;
+        makeCurrentEquation(" ");
+        makeCurrentEquation(operand);
+        makeCurrentEquation(" ");
+        updateDisplay();
+        // update the screen with the number " " and the operand
     } 
     else {}; // run  the execute function
 };
 
-function makeCurrentNumber(number) {
-    if (!currentNumber) {
-        currentNumber = number;
+function makeCurrentEquation(number) {
+    if (!currentEquation) {
+        currentEquation = number;
     } else {
-        currentNumber = currentNumber.concat(number);
+        currentEquation = currentEquation.concat(number);
     };
 };
 
 function updateDisplay() {
-    working.innerText = currentNumber;
+    working.innerText = currentEquation;
 };
 
 function clearAll() {
-    currentNumber = null;
+    currentEquation = null;
+    firstNumber = null;
+    operand = null;
     lastAnswer = null;
     working.innerText = 0;
 };
 
-function getOperand() {
-    
-};
+// function getOperand() {
+//     operand = 
+// };
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
