@@ -2,11 +2,18 @@
 let currentNumber = null;
 
 // keep track of the answer from the last executed function
-let lastAnswer;
+let lastAnswer = null;
+
+// Keep track of the operand
+let operand;
 
 // Create selector for updating the working part of the screen
 const working = document.querySelector(".working");
 working.innerText = 0;
+
+// Selector for updating the answer section
+const answer = document.querySelector(".answer");
+answer.innerText = 0;
 
 function operate(a, b, operand) {
     if(operand === "*") {return a*b;}
@@ -27,7 +34,7 @@ function getButton(e) {
         clearAll();
     } 
     else if (e.target.id === "backspace") {
-        // Run a backspace function
+        // backSpace();
     } 
     else if (e.target.id === "trig") {
         // switch buttons to trig options using a function
@@ -37,6 +44,7 @@ function getButton(e) {
     } 
     else if (e.target.id === "function") {
         // keep track of the operator used
+        console.log(e.target.innerText);
     } 
     else {}; // run  the execute function
 };
@@ -51,13 +59,17 @@ function makeCurrentNumber(number) {
 
 function updateDisplay() {
     working.innerText = currentNumber;
-}
+};
 
 function clearAll() {
     currentNumber = null;
     lastAnswer = null;
     working.innerText = 0;
-}
+};
+
+function getOperand() {
+    
+};
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
