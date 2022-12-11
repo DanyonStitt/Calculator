@@ -1,13 +1,10 @@
-// keep track of the numbers and the whole equation
+// create constants for the different part of the equation
 let currentEquation = null;
 let currentNumber = null;
+let operand = null;
 let numberArray = [];
-
-// keep track of the answer from the last executed function
-let lastAnswer = null;
-
-// Keep track of the operands being used
-let operands = [];
+let lastAnswer = 0; // Keep track of the last answer
+let operands = []; // Keep track of the operands being used
 
 // Create selector for updating the working part of the screen
 const working = document.querySelector(".working");
@@ -17,14 +14,20 @@ working.innerText = 0;
 const answer = document.querySelector(".answer");
 answer.innerText = 0;
 
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => {
+    button.addEventListener("click", getButton);
+});
+
+
 function getResult() {
     // Set the starting value
     let a = numberArray[0];
-
+    console.log(numberArray[0], numberArray[1]);
+    console.log(numberArray, operands)
     // for each operand in the array
     for (i = 0; i < operands.length; i++) {
         let b = numberArray[i+1];
-
         // operate on the first two numbers
         a = operate(a, b, operands[i]);
     };
@@ -43,11 +46,9 @@ function operate(a, b, operand) {
 }
 
 function getButton(e) {
-    let number = e.target.innerText;
-
-    if(isNaN(number) === false || number === ".") {
-        updateEquation(number);
-        updateNumber(number);
+    if(isNaN(e.target.innerText) === false || e.target.innerText === ".") {
+        updateEquation(e.target.innerText);
+        updateNumber(e.target.innerText);
     } 
     else if (e.target.id === "clear-all") {
         clearAll();
@@ -65,15 +66,17 @@ function getButton(e) {
     else if (e.target.id === "function") {
         // keep track of the operator used
         updateEquation(" ");
-        updateEquation(number);
+        updateEquation(e.target.innerText);
         updateEquation(" ");
-        recordOperands(number);
+        operand = e.target.innerText;
+        recordEquation();
         // update the screen with the number " " and the operand
     } 
-    else {
+    else if (e.target.id === "equals") {
         // run the execute function
-        operate(numberArray, operands);
-    }; 
+        recordEquation();
+        getResult();
+    };
 };
 
 // Update the equation for display on the screen
@@ -91,7 +94,6 @@ function updateEquation(number) {
 function updateNumber(number) {
     if (!currentNumber) {
         currentNumber = number;
-        console.log(number);
     } else {
         currentNumber = currentNumber.concat(number);
     };
@@ -110,16 +112,13 @@ function clearAll() {
     working.innerText = 0;
 };
 
-function recordOperands(operand) {
+function recordEquation() {
     numberArray.push(currentNumber);
     currentNumber = null;
-    operands.push(operand);
-    console.log(numberArray);
-    console.log(operands);
+    if (operand != null) {
+        operands.push(operand);
+        operand = null;
+    };
 };
 
-const buttons = document.querySelectorAll("button");
-buttons.forEach(button => {
-    button.addEventListener("click", getButton);
-});
 
