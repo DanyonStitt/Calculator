@@ -19,32 +19,6 @@ buttons.forEach(button => {
     button.addEventListener("click", getButton);
 });
 
-
-function getResult() {
-    // Set the starting value
-    let a = numberArray[0];
-    console.log(numberArray[0], numberArray[1]);
-    console.log(numberArray, operands)
-    // for each operand in the array
-    for (i = 0; i < operands.length; i++) {
-        let b = numberArray[i+1];
-        // operate on the first two numbers
-        a = operate(a, b, operands[i]);
-    };
-    
-    lastAnswer = a;
-    updateEquation(" =");
-    updateDisplay();
-    answer.innerText = lastAnswer;
-};
-
-function operate(a, b, operand) {
-    if(operand === "*") {return a*b;}
-    else if(operand === "+") {return a+b;}
-    else if(operand === "-") {return a-b;}
-    else if(operand === "/") {return a/b;};
-}
-
 function getButton(e) {
     if(isNaN(e.target.innerText) === false || e.target.innerText === ".") {
         updateEquation(e.target.innerText);
@@ -84,6 +58,10 @@ function updateEquation(number) {
     if (!currentEquation) {
         currentEquation = number;
         updateDisplay()
+    } else if (currentEquation.includes("=") === true) {
+        currentEquation = lastAnswer.toString();
+        operands = [operand];
+        updateDisplay();
     } else {
         currentEquation = currentEquation.concat(number);
         updateDisplay();
@@ -109,6 +87,7 @@ function clearAll() {
     numberArray = [];
     operands = [];
     lastAnswer = null;
+    answer.innerText = 0;
     working.innerText = 0;
 };
 
@@ -121,4 +100,37 @@ function recordEquation() {
     };
 };
 
+function getResult() {
+    // Set the starting value
+    let numbers = numberArray.map(function(str) {
+        return parseInt(str);
+    });
+    let a = numbers[0];
+    console.log(numbers[0], numbers[1]);
+    console.log(numbers, operands)
+    // for each operand in the array
+    for (i = 0; i < operands.length; i++) {
+        let b = numbers[i+1];
+        // operate on the first two numbers
+        a = operate(a, b, operands[i]);
+    };
+    
+    lastAnswer = a;
+    updateEquation(" =");
+    updateDisplay();
+    answer.innerText = lastAnswer;
+};
 
+function operate(a, b, operand) {
+    if(operand === "*") {return a*b;}
+    else if(operand === "+") {return a+b;}
+    else if(operand === "-") {return a-b;}
+    else if(operand === "/") {return a/b;};
+}
+
+// if the user adds data and an equals is on screen
+// reset the number array and add the answer as the first index
+// reset the operand array and add the current operator as the first entry
+// add the answer to the top part
+// add the operator to the display
+// continue all other functions as normal past this point
