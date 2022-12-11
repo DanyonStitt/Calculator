@@ -30,24 +30,14 @@ function getButton(e) {
     else if (e.target.id === "backspace") {
         currentEquation = currentEquation.slice(0, -1);
         updateDisplay();
-    } 
-    else if (e.target.id === "trig") {
-        // switch buttons to trig options using a function
-    } 
-    else if (e.target.id === "more") {
-        // switch the buttons to more things
-    } 
+    }
     else if (e.target.id === "function") {
         // keep track of the operator used
-        updateEquation(" ");
-        updateEquation(e.target.innerText);
-        updateEquation(" ");
+        updateEquation(" " + e.target.innerText + " ");
         operand = e.target.innerText;
         recordEquation();
-        // update the screen with the number " " and the operand
     } 
     else if (e.target.id === "equals") {
-        // run the execute function
         recordEquation();
         getResult();
     };
