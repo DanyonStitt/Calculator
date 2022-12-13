@@ -128,7 +128,10 @@ function getResult() {
         a = operate(a, b, operands[i]);
     };
     
-    lastAnswer = a.toFixed(3);
+    if (a % 1 != 0) {
+        lastAnswer = a.toFixed(3);
+    } else {lastAnswer = a}
+    
     answer.innerText = lastAnswer;
 };
 
