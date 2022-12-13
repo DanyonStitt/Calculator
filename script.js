@@ -23,7 +23,6 @@ buttons.forEach(button => {
 function getButton(e) {
     if(isNaN(e.target.innerText) === false || e.target.innerText === ".") {
         updateEquation(e.target.innerText);
-        updateNumber(e.target.innerText);
     } 
     else if (e.target.id === "clear-all") {
         clearAll();
@@ -35,24 +34,45 @@ function getButton(e) {
     else if (e.target.id === "function") {
         // keep track of the operator used
         updateEquation(" " + e.target.innerText + " ");
-        operand = e.target.innerText;
-        recordEquation();
     } 
     else if (e.target.id === "equals") {
-        recordEquation();
+        updateEquation(" " + e.target.innerText)
+        equation = currentEquation.split(" ");
+        recordEquation(equation.slice(0, -1));
         getResult();
     };
 };
 
+// record what is on the screen
+// when equals is pressed, split the display on the screen based on spaces
+// for each number in the resulting array
+// add it to a secondary array
+// for each non-number in the array
+// add it to an operands array
+// run the already existing getResult function
+// if another operand is pressed after this
+// set the display to the answer and the operand
+// continue as normal
+// if a number is pressed after this
+// run the clear all function
+// set the number the user pressed as the start of the new display
+// carry on as usual
+// if the sqrt button is pushed
+// display sqrt() with numbers between the brackets
+// if the power button is pushed
+// display the power icon, nothing fancy here
 
-// Update the equation for display on the screen
+// Update the equation for display on the screen when equals is pressed
 function updateEquation(number) {
     if (!currentEquation) {
         currentEquation = number;
         updateDisplay()
-    } else if (currentEquation.includes("=") === true) {
+    } 
+    // If an operand is pushed after the equals
+    else if (currentEquation.includes("=") === true) {
         currentEquation = lastAnswer.toString();
-        operands = [operand];
+        currentEquation.concat(" ");
+        currentEquation.concat(number);
         updateDisplay();
     } else {
         currentEquation = currentEquation.concat(number);
@@ -61,18 +81,20 @@ function updateEquation(number) {
 };
 
 
-// Update the number until an operand or execute is selected
-function updateNumber(number) {
-    if (!currentNumber) {
-        currentNumber = number;
-    } else {
-        currentNumber = currentNumber.concat(number);
-    };
+function updateDisplay() {
+    working.innerText = currentEquation;
 };
 
 
-function updateDisplay() {
-    working.innerText = currentEquation;
+function recordEquation(equation) {
+    for (i = 0; i < equation.length; i++) {
+        if (isNaN(equation[i]) === false) {
+            numberArray.push(equation[i]);
+        } else {
+            operands.push(equation[i]);
+        };
+    };
+    console.log(numberArray, operands)
 };
 
 
@@ -84,16 +106,6 @@ function clearAll() {
     lastAnswer = null;
     answer.innerText = 0;
     working.innerText = 0;
-};
-
-
-function recordEquation() {
-    numberArray.push(currentNumber);
-    currentNumber = null;
-    if (operand != null) {
-        operands.push(operand);
-        operand = null;
-    };
 };
 
 
@@ -114,8 +126,6 @@ function getResult() {
     };
     
     lastAnswer = a;
-    updateEquation(" =");
-    updateDisplay();
     answer.innerText = lastAnswer;
 };
 
