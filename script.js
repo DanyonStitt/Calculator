@@ -14,10 +14,12 @@ working.innerText = 0;
 const answer = document.querySelector(".answer");
 answer.innerText = 0;
 
-const buttons = document.querySelectorAll("button");
+const numberButtons = document.getElementById("number");
+console.log(numberButtons)
 buttons.forEach(button => {
     button.addEventListener("click", getButton);
 });
+
 
 function getButton(e) {
     if(isNaN(e.target.innerText) === false || e.target.innerText === ".") {
@@ -43,6 +45,7 @@ function getButton(e) {
     };
 };
 
+
 // Update the equation for display on the screen
 function updateEquation(number) {
     if (!currentEquation) {
@@ -58,6 +61,7 @@ function updateEquation(number) {
     };
 };
 
+
 // Update the number until an operand or execute is selected
 function updateNumber(number) {
     if (!currentNumber) {
@@ -67,9 +71,11 @@ function updateNumber(number) {
     };
 };
 
+
 function updateDisplay() {
     working.innerText = currentEquation;
 };
+
 
 function clearAll() {
     currentEquation = null;
@@ -81,6 +87,7 @@ function clearAll() {
     working.innerText = 0;
 };
 
+
 function recordEquation() {
     numberArray.push(currentNumber);
     currentNumber = null;
@@ -90,13 +97,15 @@ function recordEquation() {
     };
 };
 
+
 function getResult() {
-    // Set the starting value
+    // convert the strings to numbers for calculation
     let numbers = numberArray.map(function(str) {
         return parseInt(str);
     });
+
     let a = numbers[0];
-    console.log(numbers[0], numbers[1]);
+
     console.log(numbers, operands)
     // for each operand in the array
     for (i = 0; i < operands.length; i++) {
@@ -110,6 +119,7 @@ function getResult() {
     updateDisplay();
     answer.innerText = lastAnswer;
 };
+
 
 function operate(a, b, operand) {
     if(operand === "*") {return a*b;}
