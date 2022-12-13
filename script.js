@@ -14,8 +14,7 @@ working.innerText = 0;
 const answer = document.querySelector(".answer");
 answer.innerText = 0;
 
-const numberButtons = document.getElementById("number");
-console.log(numberButtons)
+const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
     button.addEventListener("click", getButton);
 });
