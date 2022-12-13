@@ -44,24 +44,9 @@ function getButton(e) {
     };
 };
 
-// record what is on the screen
-// when equals is pressed, split the display on the screen based on spaces
-// for each number in the resulting array
-// add it to a secondary array
-// for each non-number in the array
-// add it to an operands array
-// run the already existing getResult function
-// if another operand is pressed after this
-// set the display to the answer and the operand
-// continue as normal
-// if a number is pressed after this
-// run the clear all function
-// set the number the user pressed as the start of the new display
-// carry on as usual
+
 // if the sqrt button is pushed
 // display sqrt() with numbers between the brackets
-// if the power button is pushed
-// display the power icon, nothing fancy here
 
 // Update the equation for display on the screen when equals is pressed
 function updateEquation(number) {
@@ -70,13 +55,21 @@ function updateEquation(number) {
         updateDisplay()
     } 
     // If an operand is pushed after the equals
-    else if (currentEquation.includes("=") === true) {
+    else if (currentEquation.includes("=") === true && isNaN(number) === true) {
         numberArray = [];
         operands = [];
         currentEquation = lastAnswer.toString().concat(number);
         console.log(currentEquation)
         updateDisplay();
     } 
+    // If a number is pushed after the equals
+    else if (currentEquation.includes("=") === true && isNaN(number) === false) {
+        numberArray = [];
+        operands = [];
+        currentEquation = number;
+        console.log(currentEquation)
+        updateDisplay();
+    }
     // if 
     else {
         currentEquation = currentEquation.concat(number);
@@ -129,7 +122,7 @@ function getResult() {
     };
     
     if (a % 1 != 0) {
-        lastAnswer = a.toFixed(3);
+        lastAnswer = a.toFixed(2);
     } else {lastAnswer = a}
     
     answer.innerText = lastAnswer;
