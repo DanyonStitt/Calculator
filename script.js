@@ -33,7 +33,8 @@ function getButton(e) {
     }
     else if (e.target.id === "function") {
         // keep track of the operator used
-        updateEquation(" " + e.target.innerText + " ");
+        operandString = " " + e.target.innerText + " ";
+        updateEquation(operandString);
     } 
     else if (e.target.id === "equals") {
         updateEquation(" " + e.target.innerText)
@@ -70,11 +71,14 @@ function updateEquation(number) {
     } 
     // If an operand is pushed after the equals
     else if (currentEquation.includes("=") === true) {
-        currentEquation = lastAnswer.toString();
-        currentEquation.concat(" ");
-        currentEquation.concat(number);
+        numberArray = [];
+        operands = [];
+        currentEquation = lastAnswer.toString().concat(number);
+        console.log(currentEquation)
         updateDisplay();
-    } else {
+    } 
+    // if 
+    else {
         currentEquation = currentEquation.concat(number);
         updateDisplay();
     };
@@ -100,7 +104,6 @@ function recordEquation(equation) {
 
 function clearAll() {
     currentEquation = null;
-    currentNumber = null;
     numberArray = [];
     operands = [];
     lastAnswer = null;
@@ -112,7 +115,7 @@ function clearAll() {
 function getResult() {
     // convert the strings to numbers for calculation
     let numbers = numberArray.map(function(str) {
-        return parseInt(str);
+        return parseFloat(str);
     });
 
     let a = numbers[0];
@@ -125,7 +128,7 @@ function getResult() {
         a = operate(a, b, operands[i]);
     };
     
-    lastAnswer = a;
+    lastAnswer = a.toFixed(3);
     answer.innerText = lastAnswer;
 };
 
