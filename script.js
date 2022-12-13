@@ -140,7 +140,8 @@ function operate(a, b, operand) {
     if(operand === "*") {return a*b;}
     else if(operand === "+") {return a+b;}
     else if(operand === "-") {return a-b;}
-    else if(operand === "/") {return a/b;};
+    else if(operand === "/") {return a/b;}
+    else if(operand === "^") {return a**b};
 }
 
 // if the user adds data and an equals is on screen
